@@ -1,0 +1,26 @@
+$themes: (
+  light: (
+    text: #121c13,
+    background: #f3f7f3,
+    primary: #95bb9a,
+    secondary: #dae7db,
+    accent: #5f9566,
+  ),
+  dark: (
+    text: #e3ede4,
+    background: #080c08,
+    primary: #446a49,
+    secondary: #182519,
+    accent: #6aa071,
+  ),
+);
+
+body.light {
+  background-color: map-get(map-get($themes, light), background);
+  color: map-get(map-get($themes, light), text);
+}
+
+body.dark {
+  background-color: map-get(map-get($themes, dark), background);
+  color: map-get(map-get($themes, dark), text);
+}
