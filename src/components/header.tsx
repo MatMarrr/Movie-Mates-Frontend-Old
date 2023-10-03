@@ -1,19 +1,12 @@
-import { useTheme } from "../ThemeContext";
-import { useEffect } from "react";
+import { Logo } from "./logo";
+import { Navbar } from "./navbar";
+
+
 export const Header = () => {
-
-    const { theme, setTheme } = useTheme();
-
-    useEffect(() => {
-        document.body.className = theme;
-      }, [theme]);
-      
   return (
-    <div>
-    Aktualny motyw: {theme}
-    <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
-      Przełącz motyw
-    </button>
-  </div>
+    <div className="headerContainer">
+      <Logo />
+      <Navbar />
+    </div>
   );
-}
+};
