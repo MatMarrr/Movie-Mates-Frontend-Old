@@ -1,14 +1,37 @@
 @import "variables";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 // Global
-body {
+* {
   margin: 0;
   padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+#root {
+  height: 100%;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  height: 100%;
+  width: 100%;
+  max-width: 100vw;
+  max-height: 100vh;
 }
 
 // Header
 .headerContainer {
   height: 90px;
+  overflow-x: hidden;
   display: flex;
   align-items: center;
   padding: 5px 20px;
@@ -18,6 +41,7 @@ body {
 .linkContainer {
   display: flex;
   gap: 20px;
+  align-items: center;
 }
 
 .movieMatesIcon {
@@ -34,6 +58,7 @@ body {
   user-select: none;
   transition: 0.2s;
   transform: translateZ(0);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .headerLink:hover {
@@ -88,6 +113,55 @@ body {
   }
 }
 
+.registerPage {
+  display: flex;
+  justify-content: center;
+  height: calc(100% - 90px);
+  padding-top: 150px;
+}
+
+.registerFormContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 500px;
+  height: fit-content;
+  padding: 30px;
+  border-radius: 30px;
+}
+
+.registerPageInput {
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+}
+
+.registerFormContainer label {
+  width: 100%;
+}
+
+.errorMessage {
+  color: red;
+}
+
+.registerPageSubmitButton {
+  padding: 10px 80px;
+  border: none;
+  border-radius: 30px;
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.registerPageSubmitButton:disabled {
+  filter: brightness(50%);
+  cursor: auto;
+}
+
 // Theme styles
 body.light {
   background-color: map-get(map-get($themes, light), background);
@@ -125,4 +199,22 @@ body.light .headerLink {
 body.dark .headerLink {
   color: map-get(map-get($themes, dark), text);
   background-color: map-get(map-get($themes, dark), secondary);
+}
+
+body.light .registerFormContainer {
+  background-color: map-get(map-get($themes, light), secondary);
+  color: map-get(map-get($themes, light), text);
+}
+
+body.dark .registerFormContainer {
+  background-color: map-get(map-get($themes, dark), secondary);
+  color: map-get(map-get($themes, dark), text);
+}
+
+body.light .registerPageSubmitButton {
+  background-color: map-get(map-get($themes, light), accent);
+}
+
+body.dark .registerPageSubmitButton {
+  background-color: map-get(map-get($themes, dark), accent);
 }
