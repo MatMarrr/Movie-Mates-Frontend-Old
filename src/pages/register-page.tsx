@@ -43,21 +43,25 @@ export const RegisterPage = () => {
       setPassword(currentPassword);
       const rules = [
         {
+          id: "length",
           test: (str: string) => str.length < 8,
-          message: "Hasło musi mieć co najmniej 8 znaków!",
+          message: "Password must be at least 8 characters long!",
         },
         {
+          id: "uppercase",
           test: (str: string) => !/[A-Z]/.test(str),
-          message: "Hasło musi zawierać co najmniej jedną dużą literę!",
+          message: "Password must contain at least one uppercase letter!",
         },
         {
+          id: "digit",
           test: (str: string) => !/\d/.test(str),
-          message: "Hasło musi zawierać co najmniej jedną cyfrę!",
+          message: "Password must contain at least one digit!",
         },
         {
+          id: "specialChar",
           test: (str: string) =>
             !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(str),
-          message: "Hasło musi zawierać co najmniej jeden znak specjalny!",
+          message: "Password must contain at least one special character!",
         },
       ];
 
@@ -89,18 +93,21 @@ export const RegisterPage = () => {
           label="Name"
           placeholder="Name"
           onChange={handleNameChange}
+          maxLength={255}
         />
         <Input
           className="registerPageInput"
           label="Surname"
           placeholder="Surname"
           onChange={handleSurnameChange}
+          maxLength={255}
         />
         <Input
           className="registerPageInput"
           label="Login"
           placeholder="Login"
           onChange={handleLoginChange}
+          maxLength={255}
         />
         <Input
           className="registerPageInput"
@@ -108,6 +115,7 @@ export const RegisterPage = () => {
           placeholder="Password"
           onChange={handlePasswordChange}
           errorMessage={passwordError}
+          maxLength={255}
         />
         <SubmitButton
           className="registerPageSubmitButton"

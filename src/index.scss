@@ -113,14 +113,16 @@ html {
   }
 }
 
-.registerPage {
+.registerPage,
+.loginPage {
   display: flex;
   justify-content: center;
   height: calc(100% - 90px);
   padding-top: 150px;
 }
 
-.registerFormContainer {
+.registerFormContainer,
+.loginFormContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -131,7 +133,8 @@ html {
   border-radius: 30px;
 }
 
-.registerPageInput {
+.registerPageInput,
+.loginPageInput {
   padding: 10px 10px;
   font-size: 16px;
   border-radius: 10px;
@@ -139,7 +142,8 @@ html {
   width: 100%;
 }
 
-.registerFormContainer label {
+.registerFormContainer label,
+.loginFormContainer label {
   width: 100%;
 }
 
@@ -147,7 +151,8 @@ html {
   color: red;
 }
 
-.registerPageSubmitButton {
+.registerPageSubmitButton,
+.loginPageSubmitButton {
   padding: 10px 80px;
   border: none;
   border-radius: 30px;
@@ -157,7 +162,8 @@ html {
   cursor: pointer;
 }
 
-.registerPageSubmitButton:disabled {
+.registerPageSubmitButton:disabled,
+.loginPageSubmitButton:disabled {
   filter: brightness(50%);
   cursor: auto;
 }
@@ -201,20 +207,24 @@ body.dark .headerLink {
   background-color: map-get(map-get($themes, dark), secondary);
 }
 
-body.light .registerFormContainer {
+body.light .registerFormContainer,
+body.light .loginFormContainer {
   background-color: map-get(map-get($themes, light), secondary);
   color: map-get(map-get($themes, light), text);
 }
 
-body.dark .registerFormContainer {
+body.dark .registerFormContainer,
+body.dark .loginFormContainer {
   background-color: map-get(map-get($themes, dark), secondary);
   color: map-get(map-get($themes, dark), text);
 }
 
-body.light .registerPageSubmitButton {
+body.light .registerPageSubmitButton,
+body.light .loginPageSubmitButton {
   background-color: map-get(map-get($themes, light), accent);
 }
 
-body.dark .registerPageSubmitButton {
+body.dark .registerPageSubmitButton,
+body.dark .loginPageSubmitButton {
   background-color: map-get(map-get($themes, dark), accent);
 }

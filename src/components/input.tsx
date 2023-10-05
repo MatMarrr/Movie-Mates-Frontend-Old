@@ -5,6 +5,7 @@ interface InputProps {
   label: string;
   placeholder?: string;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  maxLength?: number;
   errorMessage?: string;
 }
 
@@ -14,6 +15,7 @@ export const Input: React.FC<InputProps> = ({
   placeholder,
   onChange,
   errorMessage,
+  maxLength,
 }) => {
   return (
     <>
@@ -23,6 +25,7 @@ export const Input: React.FC<InputProps> = ({
         className={className}
         placeholder={placeholder}
         onChange={onChange}
+        maxLength={maxLength}
       />
       <p className="errorMessage">{errorMessage}</p>
     </>
