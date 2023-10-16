@@ -1,38 +1,40 @@
 import { Input } from "../components/input";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { SubmitButton } from "../components/submitButton";
+import axios from "axios";
 
 export const RegisterPage = () => {
-  const [name, setName] = useState<string>("");
-  const [surname, setSurname] = useState<string>("");
   const [login, setLogin] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>("");
   const [allFilled, setAllFilled] = useState<boolean>(false);
+  const emailValidationRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   useEffect(() => {
     setAllFilled(
-      !!name && !!surname && !!login && !!password && !passwordError
+      !!login && !!email && !emailError && !!password && !passwordError
     );
-  }, [name, surname, login, password, passwordError]);
-
-  const handleNameChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      setName(event.target.value);
-    },
-    []
-  );
-
-  const handleSurnameChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      setSurname(event.target.value);
-    },
-    []
-  );
+  }, [login, email, emailError, password, passwordError]);
 
   const handleLoginChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       setLogin(event.target.value);
+    },
+    []
+  );
+
+  const handleEmailChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const currentEmail = event.target.value;
+      setEmail(currentEmail);
+
+      if (!emailValidationRegex.test(currentEmail)) {
+        setEmailError("Please enter a valid email address.");
+      } else {
+        setEmailError("");
+      }
     },
     []
   );
@@ -77,12 +79,31 @@ export const RegisterPage = () => {
     []
   );
 
+  const registerUser = async (
+    login: string,
+    email: string,
+    password: string
+  ) => {
+    try {
+      const apiUrl = import.meta.env.VITE_MOVIE_MATES_API_URL;
+
+      const response = await axios.post(`${apiUrl}/register`, {
+        login,
+        email,
+        password,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("There was an error registering the user!", error);
+    }
+  };
+
   const handleSubmit = useCallback(
     (event: React.FormEvent) => {
       event.preventDefault();
-      console.log({ name, surname, login, password });
+      registerUser(login, email, password);
     },
-    [name, surname, login, password]
+    [login, email, password]
   );
 
   return (
@@ -90,23 +111,17 @@ export const RegisterPage = () => {
       <div className="registerFormContainer">
         <Input
           className="registerPageInput"
-          label="Name"
-          placeholder="Name"
-          onChange={handleNameChange}
-          maxLength={255}
-        />
-        <Input
-          className="registerPageInput"
-          label="Surname"
-          placeholder="Surname"
-          onChange={handleSurnameChange}
-          maxLength={255}
-        />
-        <Input
-          className="registerPageInput"
           label="Login"
           placeholder="Login"
           onChange={handleLoginChange}
+          maxLength={255}
+        />
+        <Input
+          className="registerPageInput"
+          label="E-mail"
+          placeholder="E-mail"
+          onChange={handleEmailChange}
+          errorMessage={emailError}
           maxLength={255}
         />
         <Input
