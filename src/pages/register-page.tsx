@@ -7,20 +7,33 @@ export const RegisterPage = () => {
   const [login, setLogin] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [loginError, setLoginError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
   const [allFilled, setAllFilled] = useState<boolean>(false);
-  const emailValidationRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   useEffect(() => {
     setAllFilled(
-      !!login && !!email && !emailError && !!password && !passwordError
+      !!login &&
+        !loginError &&
+        !!email &&
+        !emailError &&
+        !!password &&
+        !passwordError
     );
-  }, [login, email, emailError, password, passwordError]);
+  }, [login, loginError, email, emailError, password, passwordError]);
 
   const handleLoginChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      setLogin(event.target.value);
+      const currentLogin = event.target.value;
+      setLogin(currentLogin);
+
+      if (currentLogin.length <= 3) {
+        setLoginError("Login needs to be at least 3 characters long");
+        return;
+      }
+
+      setLoginError("");
     },
     []
   );
@@ -30,11 +43,14 @@ export const RegisterPage = () => {
       const currentEmail = event.target.value;
       setEmail(currentEmail);
 
+      const emailValidationRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
       if (!emailValidationRegex.test(currentEmail)) {
         setEmailError("Please enter a valid email address.");
-      } else {
-        setEmailError("");
+        return;
       }
+
+      setEmailError("");
     },
     []
   );
@@ -43,6 +59,7 @@ export const RegisterPage = () => {
     (event: ChangeEvent<HTMLInputElement>) => {
       const currentPassword = event.target.value;
       setPassword(currentPassword);
+
       const rules = [
         {
           id: "length",
@@ -114,6 +131,7 @@ export const RegisterPage = () => {
           label="Login"
           placeholder="Login"
           onChange={handleLoginChange}
+          errorMessage={loginError}
           maxLength={255}
         />
         <Input
