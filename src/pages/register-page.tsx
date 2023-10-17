@@ -96,18 +96,20 @@ export const RegisterPage = () => {
     []
   );
 
-  const registerUser = async (
-    login: string,
-    email: string,
-    password: string
-  ) => {
+  interface RegisterParams {
+    login: string;
+    email: string;
+    password: string;
+  }
+
+  const registerUser = async (data: RegisterParams) => {
     try {
       const apiUrl = import.meta.env.VITE_MOVIE_MATES_API_URL;
 
       const response = await axios.post(`${apiUrl}/register`, {
-        login,
-        email,
-        password,
+        login: data.login,
+        email: data.email,
+        password: data.password,
       });
       return response.data;
     } catch (error) {
@@ -118,7 +120,7 @@ export const RegisterPage = () => {
   const handleSubmit = useCallback(
     (event: React.FormEvent) => {
       event.preventDefault();
-      registerUser(login, email, password);
+      registerUser({ login, email, password });
     },
     [login, email, password]
   );
